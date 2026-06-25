@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "history": {
+      "type": "object",
+      "description": "Room history / replay recording settings.",
+      "properties": {
+        "storage": {
+          "type": "string",
+          "description": "Storage backend name: 'file' (built in), or one provided by an installed backend mod such as 'sqlite', 'postgres', 's3'."
+        },
+        "path": {
+          "type": "string",
+          "description": "Filesystem directory (file backend) or database file path (sqlite backend)."
+        },
+        "url": {
+          "type": "string",
+          "description": "Connection string for networked backends (postgres)."
+        },
+        "bucket": {
+          "type": "string",
+          "description": "Bucket name for the s3 backend."
+        },
+        "prefix": {
+          "type": "string",
+          "description": "Key prefix for the s3 backend."
+        },
+        "region": {
+          "type": "string",
+          "description": "Region for the s3 backend."
+        },
+        "endpoint": {
+          "type": "string",
+          "description": "Custom endpoint for s3-compatible storage."
+        },
+        "chunkSize": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of ticks grouped into one stored chunk (must match the client's expectation; default 100)."
+        },
+        "keepTicks": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Retention window in ticks; chunks older than this are pruned (0 disables pruning)."
+        },
+        "cleanupInterval": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "How often, in ticks, to run the retention sweep."
+        },
+        "capture": {
+          "type": "boolean",
+          "description": "Whether this backend instance records history. Disable on extra backends to keep a single writer."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "name": "@xxscreeps-mod-history/postgres",
+  "version": "0.1.1",
+  "description": "PostgreSQL storage backend for xxscreeps-mod-history.",
+  "license": "MIT",
+  "author": "Bastian Hoyer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bastianh/xxscreeps-mod-history.git",
+    "directory": "packages/postgres"
+  },
+  "homepage": "https://github.com/bastianh/xxscreeps-mod-history#readme",
+  "keywords": [
+    "screeps",
+    "xxscreeps",
+    "screepsmod",
+    "history",
+    "replay",
+    "postgres",
+    "postgresql"
+  ],
+  "type": "module",
+  "xxscreeps": true,
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": "./dist/*"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc --build",
+    "prepack": "pnpm run build"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "pg": "^8.13.0",
+    "xxscreeps-mod-history": "workspace:^"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.11.10"
+  },
+  "peerDependencies": {
+    "xxscreeps": "*"
+  },
+  "peerDependenciesMeta": {
+    "xxscreeps": {
+      "optional": true
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  }
+}

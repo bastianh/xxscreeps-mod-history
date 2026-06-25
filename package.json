@@ -1,0 +1,18 @@
+{
+  "name": "screepsmod-history-monorepo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc --build && pnpm run copy-assets",
+    "copy-assets": "cp packages/core/config.schema.json packages/core/dist/config.schema.json",
+    "clean": "tsc --build --clean",
+    "watch": "tsc --build --watch",
+    "test": "pnpm build && node --test \"packages/core/test/**/*.test.mjs\""
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

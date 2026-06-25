@@ -1,0 +1,47 @@
+{
+  "name": "xxscreeps-mod-history",
+  "version": "0.1.1",
+  "description": "Room history / replay recording mod for the xxscreeps server, with pluggable storage backends.",
+  "license": "MIT",
+  "author": "Bastian Hoyer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bastianh/xxscreeps-mod-history.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/bastianh/xxscreeps-mod-history#readme",
+  "keywords": [
+    "screeps",
+    "xxscreeps",
+    "screepsmod",
+    "history",
+    "replay"
+  ],
+  "type": "module",
+  "xxscreeps": true,
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": "./dist/*"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc --build && cp config.schema.json dist/config.schema.json",
+    "prepack": "pnpm run build"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "peerDependencies": {
+    "xxscreeps": "*"
+  },
+  "peerDependenciesMeta": {
+    "xxscreeps": {
+      "optional": true
+    }
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  }
+}
