@@ -1,6 +1,6 @@
 {
   "name": "@xxscreeps-mod-history/s3",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "S3 / object-storage backend for xxscreeps-mod-history.",
   "license": "MIT",
   "author": "Bastian Hoyer",

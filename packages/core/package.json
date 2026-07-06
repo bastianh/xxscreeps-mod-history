@@ -1,6 +1,6 @@
 {
   "name": "xxscreeps-mod-history",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Room history / replay recording mod for the xxscreeps server, with pluggable storage backends.",
   "license": "MIT",
   "author": "Bastian Hoyer",
