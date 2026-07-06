@@ -161,14 +161,17 @@ hooks.register('backendReady', (_db: Database, shard: Shard) => {
 hooks.register('middleware', (koa, router) => {
 	const opts = options();
 
-	// Advertise the history chunk size in /api/version so the client's replay
-	// viewer aligns its chunk-base requests with what we store. Runs before
-	// router.routes(), so it can amend the response body after the route sets it.
+	// Advertise history settings in /api/version so the client's replay viewer
+	// aligns its chunk-base requests with what we store (historyChunkSize) and
+	// knows how far back history reaches (historyKeepTicks; 0 = kept forever).
+	// Runs before router.routes(), so it can amend the response body after the
+	// route sets it.
 	koa.use(async (ctx: any, next: any) => {
 		await next();
 		if (ctx.path === '/api/version' && ctx.body && typeof ctx.body === 'object') {
 			ctx.body.serverData ??= {};
 			ctx.body.serverData.historyChunkSize = opts.chunkSize;
+			ctx.body.serverData.historyKeepTicks = opts.keepTicks;
 		}
 	});
 

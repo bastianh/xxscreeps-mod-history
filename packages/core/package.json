@@ -28,7 +28,7 @@
   ],
   "scripts": {
     "build": "tsc --build && cp config.schema.json dist/config.schema.json",
-    "prepack": "pnpm run build"
+    "prepack": "tsc --build --noCheck && cp config.schema.json dist/config.schema.json"
   },
   "engines": {
     "node": ">=20"

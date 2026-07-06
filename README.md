@@ -65,9 +65,34 @@ lease also guards against double writes).
 
 ```sh
 pnpm install
-pnpm build      # tsc --build across all packages + copies config.schema.json
+pnpm build      # tsc --build (strict) across all packages + copies config.schema.json
+pnpm test       # builds, then runs the node:test suite
 ```
 
 Types resolve against a local xxscreeps checkout via `tsconfig` path mapping
 (`../../../xxscreeps/packages/xxscreeps/dist`); at runtime xxscreeps is an
-optional peer dependency provided by the host server.
+optional peer dependency provided by the host server. CI has no such checkout,
+so `pnpm build:ci` / `pnpm test:ci` transpile with `tsc --noCheck` — the strict
+typecheck runs locally where the sibling checkout exists.
+
+## Releasing
+
+Versioning and publishing are automated with
+[changesets](https://github.com/changesets/changesets).
+
+1. With your change, add a changeset describing it and the bump type:
+
+   ```sh
+   pnpm changeset
+   ```
+
+   Commit the generated `.changeset/*.md` file alongside your code.
+
+2. On push to `main`, the **Release** workflow opens (or updates) a
+   **"Version Packages"** PR that consumes the pending changesets, bumps
+   versions and writes each package's `CHANGELOG.md`.
+3. Merging that PR builds and runs `changeset publish`, publishing the changed
+   packages to npm and tagging the release.
+
+Publishing requires an `NPM_TOKEN` repository secret (an npm automation token
+without publish-time 2FA). `GITHUB_TOKEN` is provided automatically.

@@ -13,13 +13,35 @@ into separate publishable packages so users only pull in the deps they use.
 
 ```sh
 pnpm install
-pnpm build      # tsc --build across all packages, then copies config.schema.json into core/dist
+pnpm build      # tsc --build (strict) across all packages, then copies config.schema.json into core/dist
+pnpm build:ci   # same, but tsc --noCheck (used by CI, which has no sibling xxscreeps checkout)
 pnpm watch      # tsc --build --watch
 pnpm clean      # tsc --build --clean
+pnpm test       # pnpm build + node:test suite in packages/core/test
+pnpm test:ci    # pnpm build:ci + node:test (CI variant)
+pnpm changeset  # add a changeset (versioning/changelog); see "Releasing"
 ```
 
-There is no test suite, linter, or single-test runner configured. `tsc --build`
-(strict mode) is the only check.
+`tsc --build` (strict) plus the `node:test` suite under `packages/core/test`
+are the checks. There is no linter configured.
+
+## Releasing
+
+Versioning/publishing is automated with [changesets](https://github.com/changesets/changesets):
+
+- Author changes with a committed `.changeset/*.md` (`pnpm changeset`).
+- `.github/workflows/release.yml` (push to `main`) runs `changesets/action`: it
+  opens/updates a **"Version Packages"** PR, and on merge runs `pnpm release`
+  (`build:ci` + `changeset publish`) to publish changed packages and tag them.
+- `.github/workflows/ci.yml` runs `pnpm test:ci` on PRs/pushes.
+- Because CI has no sibling xxscreeps checkout, publishing builds with
+  `tsc --noCheck` — the emitted `.d.ts` still reference the real `xxscreeps/*`
+  types (correct for host consumers). Package `prepack` scripts also use
+  `--noCheck` so `changeset publish` never needs the sibling. Strict
+  typechecking only runs locally. `.npmrc` sets `auto-install-peers=false` so the
+  mismatched published `xxscreeps` sources don't get installed and shadow either
+  the sibling types (local) or the emit (CI).
+- Needs an `NPM_TOKEN` repo secret; `GITHUB_TOKEN` is automatic.
 
 ## Monorepo layout
 
