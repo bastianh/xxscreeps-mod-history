@@ -2,6 +2,7 @@
   "name": "screepsmod-history-monorepo",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@10.33.2",
   "scripts": {
     "build": "tsc --build && pnpm run copy-assets",
     "build:ci": "tsc --build --noCheck && pnpm run copy-assets",
