@@ -24,12 +24,14 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
 
+      # No `registry-url` here on purpose: it would write an .npmrc expecting
+      # NODE_AUTH_TOKEN and shadow the token that changesets/action writes from
+      # NPM_TOKEN, causing publish to run unauthenticated (npm reports E404).
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: pnpm
-          registry-url: https://registry.npmjs.org
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
