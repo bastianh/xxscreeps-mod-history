@@ -1,6 +1,6 @@
 {
   "name": "@xxscreeps-mod-history/postgres",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "PostgreSQL storage backend for xxscreeps-mod-history.",
   "license": "MIT",
   "author": "Bastian Hoyer",
